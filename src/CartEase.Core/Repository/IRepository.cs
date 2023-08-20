@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using CartEase.Core.Entity;
 
 namespace CartEase.Core.Repository;
@@ -6,7 +7,7 @@ public interface IRepository
 {
     public Task<bool> AnyAsync<TEntity>(int id) where TEntity : Entity.Entity;
 
-    public IQueryable<TEntity> GetAllAsync<TEntity>() where TEntity : Entity.Entity;
+    public IQueryable<TEntity> GetAll<TEntity>() where TEntity : Entity.Entity;
 
     public Task<TEntity?> GetByIdAsync<TEntity>(int id) where TEntity : Entity.Entity;
 

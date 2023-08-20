@@ -8,7 +8,7 @@ public class ServiceResponse<T>
         Errors = new List<string>();
     }
 
-    public T Entity { get; set; }
+    public T Data { get; set; }
 
     public dynamic Tag { get; set; }
         

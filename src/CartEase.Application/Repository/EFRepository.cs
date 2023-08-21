@@ -24,12 +24,12 @@ public class EfRepository : IRepository, IDisposable
         return _context.Set<TEntity>().AsQueryable();
     }
 
-    public Task<TEntity?> GetByIdAsync<TEntity>(int id) where TEntity : Entity
+    public Task<TEntity> GetByIdAsync<TEntity>(int id) where TEntity : Entity
     {
         return _context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id);
     }
 
-    public Task<TEntity> AddAsync<TEntity>(TEntity entity, int currentUserId, 
+    public Task<TEntity> AddAsync<TEntity>(TEntity entity, 
         CancellationToken cancellationToken = new CancellationToken()) where TEntity : Entity
     {
         _context.Set<TEntity>().Add(entity);
@@ -37,7 +37,7 @@ public class EfRepository : IRepository, IDisposable
         return Task.FromResult(entity);
     }
 
-    public Task<bool> DeleteAsync<TEntity>(TEntity entity, int currentUserId, 
+    public Task<bool> DeleteAsync<TEntity>(TEntity entity, 
         CancellationToken cancellationToken = new CancellationToken()) where TEntity : Entity
     {
         _context.Set<TEntity>().Remove(entity);
@@ -45,7 +45,7 @@ public class EfRepository : IRepository, IDisposable
         return Task.FromResult(true);
     }
 
-    public Task<TEntity> UpdateAsync<TEntity>(TEntity entity, int currentUserId, 
+    public Task<TEntity> UpdateAsync<TEntity>(TEntity entity, 
         CancellationToken cancellationToken = new CancellationToken()) where TEntity : Entity
     {
         _context.Set<TEntity>().Update(entity);

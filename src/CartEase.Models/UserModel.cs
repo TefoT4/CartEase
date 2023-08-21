@@ -9,7 +9,7 @@ namespace CartEase.Models
         public string Email { get; init; }
         public string FirstName { get; init; }
         public string LastName { get; init; }
-        public string? AuthProviderId { get; set; }
+        public string AuthProviderId { get; set; }
 
         public ICollection<CartItemModel> CartItems { get; init; }
     }

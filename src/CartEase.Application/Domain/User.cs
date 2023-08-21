@@ -10,7 +10,7 @@ namespace CartEase.Application.Domain
         public string FirstName { get; init; }
         public string LastName { get; init; }
         
-        public string? AuthProviderId { get; set; }
+        public string AuthProviderId { get; set; }
 
         public ICollection<CartItem> CartItems { get; init; }
     }

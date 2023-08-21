@@ -35,7 +35,7 @@ public class CartService : ICartService
             if(user == null)
                 return new ServiceResponse<IEnumerable<CartItem>>(){ IsSuccessful = false, Errors = new List<string> { "User not found" } };
             
-            var cartItems = _repository.GetAll<CartItemModel>().FirstOrDefault(x => x.UserId == user.Id);
+            var cartItems = _repository.GetAll<CartItemModel>().Where(x => x.UserId == user.Id);
             
             var mappedCartItems = _mapper.Map<IEnumerable<CartItem>>(cartItems);
             
@@ -48,7 +48,7 @@ public class CartService : ICartService
         }
     }
 
-    public async Task<ServiceResponse<CartItem>> GetItemDetailsAsync(string? userId, int cartItemId)
+    public async Task<ServiceResponse<CartItem>> GetItemDetailsAsync(string userId, int cartItemId)
     {
         try
         {
@@ -90,7 +90,7 @@ public class CartService : ICartService
 
             cartItem.UserId = user.Id;
             
-            var result = await _repository.AddAsync(cartItem, user.Id);
+            var result = await _repository.AddAsync(cartItem);
             
             return result != null ? 
                 new ServiceResponse<CartItem> { IsSuccessful = true, Data = _mapper.Map<CartItem>(result) } : 
@@ -124,7 +124,7 @@ public class CartService : ICartService
             cartItem.Price = cartItemInput.Price;
             cartItem.Quantity = cartItemInput.Quantity;
             
-            var result = await _repository.UpdateAsync(cartItem, user.Id);
+            var result = await _repository.UpdateAsync(cartItem);
             
             return result != null ? 
                 new ServiceResponse<CartItem> { IsSuccessful = true, Data = _mapper.Map<CartItem>(result) } : 
@@ -153,11 +153,9 @@ public class CartService : ICartService
             if(cartItem == null)
                 return new ServiceResponse<bool>(){ IsSuccessful = false, Errors = new List<string> { "Cart item not found" } };
             
-            var result = await _repository.DeleteAsync(cartItem, user.Id);
+            var result = await _repository.DeleteAsync(cartItem);
             
-            return result != null ? 
-                new ServiceResponse<bool> { IsSuccessful = true } : 
-                new ServiceResponse<bool> { IsSuccessful = false };
+            return new ServiceResponse<bool> { IsSuccessful = result };
         }
         catch (Exception e)
         {
@@ -192,7 +190,7 @@ public class CartService : ICartService
             
             cartItem.ItemImages.Add(itemImage);
             
-            ItemImageModel result = await _repository.UpdateAsync(itemImage, user.Id);
+            ItemImageModel result = await _repository.UpdateAsync(itemImage);
 
             return result != null ?  
                 new ServiceResponse<CartItem>
@@ -211,7 +209,7 @@ public class CartService : ICartService
         }
     }
 
-    private void ValidateAddImageParameters(string userId, int cartItemId)
+    public void ValidateAddImageParameters(string userId, int cartItemId)
     {
         if (userId == null)
             throw new ArgumentNullException(nameof(userId));

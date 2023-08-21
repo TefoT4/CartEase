@@ -7,7 +7,7 @@ public interface ICartService
 {
     Task<ServiceResponse<IEnumerable<CartItem>>> GetItemsAsync(string userId);
     
-    Task<ServiceResponse<CartItem>> GetItemDetailsAsync(string? userId, int id);
+    Task<ServiceResponse<CartItem>> GetItemDetailsAsync(string userId, int id);
     
     Task<ServiceResponse<CartItem>> AddItemAsync(string userId, CartItem cartItemInput);
     

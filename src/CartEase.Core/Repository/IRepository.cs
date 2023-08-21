@@ -9,14 +9,14 @@ public interface IRepository
 
     public IQueryable<TEntity> GetAll<TEntity>() where TEntity : Entity.Entity;
 
-    public Task<TEntity?> GetByIdAsync<TEntity>(int id) where TEntity : Entity.Entity;
+    public Task<TEntity> GetByIdAsync<TEntity>(int id) where TEntity : Entity.Entity;
 
-    Task<TEntity> AddAsync<TEntity>(TEntity entity, int currentUserId,
+    Task<TEntity> AddAsync<TEntity>(TEntity entity,
         CancellationToken cancellationToken = new CancellationToken()) where TEntity : Entity.Entity;
 
-    Task<bool> DeleteAsync<TEntity>(TEntity entity, int currentUserId,
+    Task<bool> DeleteAsync<TEntity>(TEntity entity,
         CancellationToken cancellationToken = new CancellationToken()) where TEntity : Entity.Entity;
 
-    public Task<TEntity> UpdateAsync<TEntity>(TEntity entity, int currentUserId,
+    public Task<TEntity> UpdateAsync<TEntity>(TEntity entity,
         CancellationToken cancellationToken = new CancellationToken()) where TEntity : Entity.Entity;
 }

@@ -1,0 +1,48 @@
+# CartEase Web API Project
+
+This repository contains a sample implementation of a web API using .NET Core 7, Entity Framework Core, and GitHub authentication.
+
+## Getting Started
+
+Follow these steps to set up the project on your local machine.
+
+### Prerequisites
+
+- [.NET Core 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/your-username/CartEase.git
+cd CartEase
+```
+
+### Setup Configuration
+Navigate to the API project folder.
+```bash
+cd src/CartEase.Api
+```
+
+### Create the Database
+Navigate to the Infrastructure project folder.
+```bash
+cd ../CartEase.Infrastructure
+```
+
+Run Entity Framework Core migrations to create the database.
+```bash
+dotnet ef database update --startup-project ../CartEase.Api
+```
+
+### Run the Application
+```bash
+dotnet run
+```
+
+### API Documentation
+You can access the API documentation using Swagger UI. Open your browser and navigate to:
+```bash
+http://localhost:5000/swagger
+```
+
+

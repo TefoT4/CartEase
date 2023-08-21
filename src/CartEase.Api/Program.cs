@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<CartEaseContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connectionString));
 
 //builder.Services.ConfigureAuthentication(builder.Configuration);
 
@@ -28,6 +30,12 @@ if (app.Environment.IsDevelopment())
         c.OAuthClientId("<GithubClientId>");
         c.OAuthClientSecret("<GithubClientSecret>");
     });
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<CartEaseContext>();
+    dbContext.Database.Migrate();
 }
 
 app.UseHttpsRedirection();

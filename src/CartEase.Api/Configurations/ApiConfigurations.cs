@@ -73,11 +73,17 @@ public static class ApiConfigurations
     {
         builder.Host.UseSerilog((ctx, lc) =>
         {
+            var seqUrl = ctx.Configuration.GetSection("Seq:Url").Value;
+
             lc.MinimumLevel.Warning();
             lc.WriteTo.Console();
-            lc.WriteTo.Seq("http://localhost:5341/");
+            if (!string.IsNullOrEmpty(seqUrl))
+            {
+                lc.WriteTo.Seq(seqUrl);
+            }
         });
-        
+    
         builder.Services.AddHttpLogging(options => options.LoggingFields = HttpLoggingFields.All);
     }
+
 }

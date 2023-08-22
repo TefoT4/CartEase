@@ -4,7 +4,7 @@ services:
   carteaseapi:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./src/CartEase.Api/Dockerfile
     ports:
       - "8000:80"
     depends_on:
@@ -13,15 +13,15 @@ services:
     environment:
       ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=CartEase;User Id=sa;Password=YourStrongPassword;"
       Seq__ServerUrl: "http://seq:5341"
-      AuthSettings__ClientId: "YourGithubClientID"
-      AuthSettings__ClientSecret: "YourGithubClientSecret"
+      AuthSettings__ClientId: "<YourGithubClientID>"
+      AuthSettings__ClientSecret: "<YourGithubClientSecret>"
       AuthSettings__RedirectUri: "http://carteaseapi:80/swagger"
 
   sqlserver:
     image: "mcr.microsoft.com/mssql/server"
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "YourStrongPassword"
+      SA_PASSWORD: "<YourSqlServerPassword>"
     ports:
       - "1433:1433"
 

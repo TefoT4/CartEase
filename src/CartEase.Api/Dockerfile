@@ -7,14 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["src/CartEase.Api/CartEase.Api.csproj", "src/CartEase.Api/"]
-COPY ["src/CartEase.Application/CartEase.Application.csproj", "src/CartEase.Application/"]
-COPY ["src/CartEase.Core/CartEase.Core.csproj", "src/CartEase.Core/"]
-COPY ["src/CartEase.Infrastructure/CartEase.Infrastructure.csproj", "src/CartEase.Infrastructure/"]
-COPY ["src/CartEase.Models/CartEase.Models.csproj", "src/CartEase.Models/"]
-RUN dotnet restore "src/CartEase.Api/CartEase.Api.csproj"
+COPY ["src/CartEase.Api/CartEase.Api.csproj", "CartEase.Api/"]
+COPY ["src/CartEase.Application/CartEase.Application.csproj", "CartEase.Application/"]
+COPY ["src/CartEase.Core/CartEase.Core.csproj", "CartEase.Core/"]
+COPY ["src/CartEase.Infrastructure/CartEase.Infrastructure.csproj", "CartEase.Infrastructure/"]
+COPY ["src/CartEase.Models/CartEase.Models.csproj", "CartEase.Models/"]
+RUN dotnet restore "CartEase.Api/CartEase.Api.csproj" --source https://api.nuget.org/v3/index.json
 COPY . .
-WORKDIR "/src/src/CartEase.Api"
+WORKDIR "/src/CartEase.Api"
 RUN dotnet build "CartEase.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -1,16 +1,16 @@
 # CartEase API
 
-CartEase is a RESTful API designed to manage shopping cart items for an online store. It allows users to perform CRUD operations on their shopping cart items, attach images to items, and securely authenticate using Google OAuth 2.0.
+CartEase is a RESTful API designed to manage shopping cart items for an online store. It allows users to perform CRUD operations on their shopping cart items, attach images to items, and securely authenticate using Github OAuth 2.0.
 
 ## Authentication
 
-CartEase uses OAuth 2.0 for user authentication. Users are required to log in using their Google accounts.
+CartEase uses OAuth 2.0 for user authentication. Users are required to log in using their Github accounts.
 
-### Google OAuth 2.0
+### Github OAuth 2.0
 
-To authenticate with Google:
-1. Visit the login page and click on the "Login with Google" button.
-2. You will be redirected to Google's authentication page.
+To authenticate with Github:
+1. Visit the login page and click on the "Login with Github" button.
+2. You will be redirected to Github's authentication page.
 3. After successfully logging in, you will be redirected back to the application.
 
 ## Endpoints

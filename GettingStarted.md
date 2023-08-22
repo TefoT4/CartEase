@@ -1,5 +1,5 @@
 # CartEase API Project
-CartEase is a RESTful API designed to manage shopping cart items for an online store. It allows users to perform CRUD operations on their shopping cart items, attach images to items, and securely authenticate using Google OAuth 2.0.
+CartEase is a RESTful API designed to manage shopping cart items for an online store. It allows users to perform CRUD operations on their shopping cart items, attach images to items, and securely authenticate using Github OAuth 2.0.
 
 This README provides steps on how to run the project using Docker and Docker Compose.
 

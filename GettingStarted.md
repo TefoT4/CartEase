@@ -34,17 +34,30 @@ YourProjectRoot/
 │
 └── README.md
 
+## Configuration Steps
+
+1. **Github Authentication Settings**:
+   In the `appsettings.json` file, ensure you've added your Github OAuth 2.0 `ClientId` and `ClientSecret` in the authentication section.
+
+2. **Dockerfile & Docker-Compose Settings**:
+   - Review the `Dockerfile` in the CartEase.Api directory. Ensure it references the correct .NET SDK and runtime versions.
+   - In the `docker-compose.yml`, ensure the build context, volumes, and network settings are correctly set.
+
+3. **Launch Settings**:
+   Review the `launchsettings.json` in the CartEase.Api directory to ensure the application URLs and environment-specific settings are correctly configured.
+
 ## Steps to Run the Project Using Docker
+
 1. ### Navigate to Project Root:
    Open a terminal or command prompt and navigate to the root directory of the project, where the docker-compose.yml file is located.
-   ```
+   ```bash
    cd /path/to/ProjectRoot
-   ```
 2. ### Environment Variables and Secrets
    Before running the project, ensure you've set the required environment variables in the docker-compose.yml file: Replace YourStrongPassword with your actual SQL Server SA password.
-Replace YourGithubClientID and YourGithubClientSecret with your GitHub OAuth App's client ID and secret.
-🔒 Security Note: For production deployments, consider using more secure methods like Docker secrets or external environment variable files to store these sensitive details.
-
+   * Replace YourStrongPassword with your actual SQL Server SA password.
+   * Replace YourGithubClientID and YourGithubClientSecret with your GitHub OAuth App's client ID and secret.
+   
+   * Security Note: For production deployments, consider using more secure methods like Docker secrets or external environment variable files to store these sensitive details.
 
 3. ### Build and Start Containers:
    Run the following command to build the Docker images (if not built) and start the containers:
@@ -64,6 +77,15 @@ docker-compose up -d
 docker-compose down
 ```
 This command will stop and remove all the containers defined in the docker-compose.yml file.
+
+## Troubleshooting
+1. If you encounter issues during the Docker build process related to NuGet package restoration, ensure your Docker container has access to the internet and that https://api.nuget.org/v3/index.json is reachable.
+2. If there are issues with environment variables or secrets not being recognized, verify that they are correctly set in the docker-compose file and that there are no typographical errors.
+3. For problems related to Github OAuth, ensure that the ClientId and ClientSecret in the appsettings.json file match with your Github OAuth App settings and that the callback URL is set correctly in Github.
+4. Check the container logs for any runtime errors or issues:
+```bash
+docker logs <container_name_or_id>
+```
 
 ## Conclusion
 You've successfully set up and run the CartEase API project using Docker! If you encounter any issues, refer to Docker and Docker Compose's official documentation or reach out for support.

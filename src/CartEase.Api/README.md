@@ -9,6 +9,7 @@ Follow these steps to set up the project on your local machine.
 ### Prerequisites
 
 - [.NET Core 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
+- Docker (Optional, but helpful if you want to containerize the application)
 
 ### Clone the Repository
 
@@ -34,9 +35,8 @@ your ClientId and ClientSecret:
 }
 ```
 
-Note on Authentication: This project uses GitHub OAuth2 for authentication. Make sure you've registered an OAuth App 
-on GitHub and obtained your ClientId and ClientSecret. The callback URL in your GitHub OAuth App configuration should 
-be set to https://localhost:7029/github-login.
+### Note on Authentication:
+This project uses GitHub OAuth2 for authentication. Ensure you've registered an OAuth App on GitHub and obtained your ClientId and ClientSecret. The callback URL in your GitHub OAuth App configuration should be set to https://localhost:7029/github-login.
 
 ### Authentication
 Swagger UI, by default, makes AJAX calls to your endpoints. When you're triggering an OAuth 
@@ -54,7 +54,7 @@ I have intentionally excluded the 'LoginWithGitHub' with github endpoint to prev
 [ApiExplorerSettings(IgnoreApi = true)]
 ```
 
-### Create the Database
+### Database Setup
 Navigate to the Infrastructure project folder.
 ```bash
 cd ../CartEase.Infrastructure

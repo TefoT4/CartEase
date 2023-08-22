@@ -9,7 +9,7 @@ namespace CartEase.Application.Validators
         {
             RuleFor(user => user.Username)
                 .NotEmpty().WithMessage("Username is required.")
-                .MaximumLength(10).WithMessage("Username must not exceed 10 characters.");
+                .EmailAddress().WithMessage("Username must be a valid email address.");
 
             RuleFor(user => user.Email)
                 .NotEmpty().WithMessage("Email is required.")

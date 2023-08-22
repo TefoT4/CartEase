@@ -55,6 +55,6 @@ public class UserService : IUserService
 
     public async Task<bool> ExistAsync(string identityName)
     {
-        return await _repository.GetAll<Domain.User>().AnyAsync(x => x.Username == identityName);
+        return await _repository.GetAll<UserModel>().AnyAsync(x => x.Username == identityName);
     }
 }

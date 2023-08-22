@@ -23,6 +23,37 @@ Navigate to the API project folder.
 cd src/CartEase.Api
 ```
 
+Update GitHub OAuth settings. Open the appsettings.json file or your environment-specific configurations and set 
+your ClientId and ClientSecret:
+```bash
+{
+  "AuthSettings": {
+    "ClientId": "YOUR_GITHUB_CLIENT_ID",
+    "ClientSecret": "YOUR_GITHUB_CLIENT_SECRET"
+  }
+}
+```
+
+Note on Authentication: This project uses GitHub OAuth2 for authentication. Make sure you've registered an OAuth App 
+on GitHub and obtained your ClientId and ClientSecret. The callback URL in your GitHub OAuth App configuration should 
+be set to https://localhost:7029/github-login.
+
+### Authentication
+Swagger UI, by default, makes AJAX calls to your endpoints. When you're triggering an OAuth 
+flow (which expects redirects and interactions with external websites), AJAX isn't the right approach.
+
+Instead of using Swagger UI to initiate the OAuth flow, try accessing the Github Login endpoint directly from your browser. 
+```bash
+Navigate to:
+https://localhost:7029/Authentication/github-login
+```
+This should trigger the OAuth flow, redirecting you to GitHub for authentication.
+
+I have intentionally excluded the 'LoginWithGitHub' with github endpoint to prevent confusion.
+```bash
+[ApiExplorerSettings(IgnoreApi = true)]
+```
+
 ### Create the Database
 Navigate to the Infrastructure project folder.
 ```bash

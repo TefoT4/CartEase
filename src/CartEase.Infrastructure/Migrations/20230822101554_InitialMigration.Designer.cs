@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CartEase.Infrastructure.Migrations
 {
     [DbContext(typeof(CartEaseContext))]
-    [Migration("20230822092154_InitialMigration")]
+    [Migration("20230822101554_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />

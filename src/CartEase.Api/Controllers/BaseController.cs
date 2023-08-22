@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using CartEase.Application.Domain;
 using CartEase.Application.Services.User;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ namespace CartEase.Api.Controllers;
 
 public class BaseController : ControllerBase
 {
+    private string currentUserId;
     private readonly IUserService _userService;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -15,7 +17,7 @@ public class BaseController : ControllerBase
         _httpContextAccessor = httpContextAccessor;
     }
 
-    private async Task<string> GetUserId()
+    private string GetUserId()
     {
         if (_httpContextAccessor.HttpContext.User == null)
         {
@@ -24,27 +26,40 @@ public class BaseController : ControllerBase
         
         if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
         {
-            if (! await _userService.ExistAsync(_httpContextAccessor.HttpContext.User.Identity.Name))
+            var claims = _httpContextAccessor.HttpContext.User.Claims;
+
+            var enumerable = claims as Claim[] ?? claims.ToArray();
+            var username = enumerable.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+            
+            if (! _userService.ExistAsync(username).Result)
             {
+                var names = claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value?.Split(' ');
+
                 // create a user from claims
                 var user = new User()
                 {
-                    Email = "",
-                    Username = _httpContextAccessor.HttpContext.User.Identity.Name,
-                    FirstName = "",
-                    LastName = "",
-                    AuthProviderId = ""
+                    Email = enumerable.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
+                    Username = username,
+                    FirstName = names?.FirstOrDefault(),
+                    LastName = names?.LastOrDefault(),
+                    AuthProviderId = enumerable.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value
                 };
 
-                var result = await _userService.CreateAsync(user);
+                var result = _userService.CreateAsync(user).Result;
 
                 if (result.IsSuccessful)
                     return result.Data.AuthProviderId;
             }
+            else
+            {
+                currentUserId = enumerable.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+                return currentUserId;
+            }
+                
         }
 
         return string.Empty;
     }
 
-    protected string CurrentUserId => GetUserId().Result;
+    protected string? CurrentUserId => Convert.ToString(!string.IsNullOrEmpty(currentUserId) ? currentUserId : GetUserId());
 }

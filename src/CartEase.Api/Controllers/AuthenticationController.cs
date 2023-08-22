@@ -15,13 +15,14 @@ public class AuthenticationController : Controller
     }
     
     [HttpGet("github-login")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public IActionResult LoginWithGitHub()
     {
         try
         {
             var authenticationProperties = new AuthenticationProperties
             {
-                RedirectUri = "https://localhost:7239"
+                RedirectUri = "https://localhost:7029/swagger"
             };
             
             var authenticationSchemes =  new[] { "GitHub" };

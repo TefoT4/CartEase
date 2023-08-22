@@ -1,8 +1,8 @@
 using CartEase.Core.Repository;
 using Microsoft.Extensions.Logging;
-using CartEase.Application.Service;
 using CartEase.Models;
 using CartEase.Application.Domain;
+using CartEase.Application.Services.Cart;
 using CartEase.Application.Validators;
 
 namespace CartEase.Tests

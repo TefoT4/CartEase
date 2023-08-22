@@ -1,12 +1,13 @@
 using CartEase.Application.Domain;
-using CartEase.Application.Service;
+using CartEase.Application.Services.Cart;
+using CartEase.Application.Services.User;
 using CartEase.Application.Validators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CartEase.Api.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class CartController : BaseController
@@ -14,8 +15,9 @@ public class CartController : BaseController
     private readonly ICartService _cartService;
     private readonly CartItemValidator _cartItemValidator;
 
-    public CartController(IHttpContextAccessor httpContextAccessor, ICartService cartService, CartItemValidator cartItemValidator) 
-        : base(httpContextAccessor)
+    public CartController(IHttpContextAccessor httpContextAccessor, IUserService userService, ICartService cartService, 
+        CartItemValidator cartItemValidator) 
+        : base(httpContextAccessor, userService)
     {
         _cartService = cartService;
         _cartItemValidator = cartItemValidator;
@@ -28,7 +30,7 @@ public class CartController : BaseController
             .GetItemsAsync(CurrentUserId)
             .Result;
         
-        return Ok(serviceResponse.Data);
+        return serviceResponse.IsSuccessful ? Ok(serviceResponse.Data) : BadRequest(serviceResponse.Data);
     }
     
     [HttpGet("{itemId}")]
@@ -38,7 +40,10 @@ public class CartController : BaseController
             .GetItemDetailsAsync(CurrentUserId, itemId)
             .Result;
         
-        return serviceResponse.IsSuccessful ? Ok(serviceResponse.Data) : NotFound(itemId);
+        return serviceResponse.IsSuccessful ? 
+            Ok(serviceResponse.Data) : serviceResponse.Errors.Count > 0 ?
+                BadRequest(serviceResponse.Errors) :
+            NotFound(itemId);
     }
 
     [HttpPost]

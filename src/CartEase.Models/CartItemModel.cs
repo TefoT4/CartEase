@@ -17,10 +17,11 @@ namespace CartEase.Models
         public decimal Price { get; set; }
         
         public int Quantity { get; set; }
-        public virtual ICollection<ItemImageModel> ItemImages { get; set; }
         
         public int UserId { get; set; }
         
         public virtual UserModel User { get; set; }
+        
+        public virtual ICollection<ItemImageModel> ItemImages { get; set; }
     }
 }

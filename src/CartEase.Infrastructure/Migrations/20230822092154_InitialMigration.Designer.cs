@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CartEase.Infrastructure.Migrations
 {
     [DbContext(typeof(CartEaseContext))]
-    [Migration("20230821105904_InitialMigration")]
+    [Migration("20230822092154_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -66,11 +66,23 @@ namespace CartEase.Infrastructure.Migrations
                     b.Property<int?>("CartItemModelId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("ContentDisposition")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("ImageFile")
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("FileBytes")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Length")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -34,6 +34,11 @@ Run Entity Framework Core migrations to create the database.
 dotnet ef database update --startup-project ../CartEase.Api
 ```
 
+Add a side note. Migrations are added by running the following command:
+```bash
+ dotnet ef migrations add <MigrationNameGoesHere> --startup-project ../CartEase.Api
+```
+
 ### Run the Application
 ```bash
 dotnet run
@@ -44,5 +49,3 @@ You can access the API documentation using Swagger UI. Open your browser and nav
 ```bash
 http://localhost:5000/swagger
 ```
-
-

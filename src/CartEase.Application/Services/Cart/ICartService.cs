@@ -1,7 +1,7 @@
 using CartEase.Application.Domain;
 using CartEase.Core;
 
-namespace CartEase.Application.Service;
+namespace CartEase.Application.Services.Cart;
 
 public interface ICartService
 {

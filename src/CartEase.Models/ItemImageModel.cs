@@ -4,6 +4,10 @@ namespace CartEase.Models;
 
 public class ItemImageModel : Entity
 {
-    public byte[] ImageFile { get; set; }
-    public string Description { get; set; }
+    public string FileName { get; set; }
+    public byte[] FileBytes { get; set; }
+    public string ContentType { get; set; }
+    public string ContentDisposition { get; set; }
+    public long Length { get; set; }
+    public string Name { get; set; }
 }

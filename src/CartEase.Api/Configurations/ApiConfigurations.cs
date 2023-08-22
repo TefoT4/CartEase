@@ -25,8 +25,9 @@ public static class ApiConfigurations
     {
         services.AddAuthentication(options =>
             {
-                options.DefaultAuthenticateScheme = "GitHub";
-                options.DefaultChallengeScheme = "GitHub";
+                options.DefaultAuthenticateScheme = "cookie";
+                options.DefaultSignInScheme = "cookie";
+                options.DefaultChallengeScheme = "GitHub"; 
             })
             .AddCookie("cookie")
             .AddOAuth("GitHub", options =>
@@ -36,7 +37,7 @@ public static class ApiConfigurations
                 options.ClientId = authSettings.GetValue<string>("ClientId") ?? throw new ArgumentNullException("ClientId");
                 options.ClientSecret = authSettings.GetValue<string>("ClientSecret") ?? throw new ArgumentNullException("ClientSecret");
                 
-                options.CallbackPath = "/signin-github";
+                options.CallbackPath = "/github-login";
 
                 options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
                 options.TokenEndpoint = "https://github.com/login/oauth/access_token";

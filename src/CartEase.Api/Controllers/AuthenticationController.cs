@@ -1,32 +1,34 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
 
-namespace CartEase.Api.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class AuthenticationController : Controller
+public class YourController : ControllerBase
 {
-    private readonly ILogger<AuthenticationController> _logger;
+    private readonly ILogger<YourController> _logger;
+    private readonly IConfiguration _configuration;
 
-    public AuthenticationController(ILogger<AuthenticationController> logger)
+    public YourController(ILogger<YourController> logger, IConfiguration configuration)
     {
         _logger = logger;
+        _configuration = configuration;
     }
-    
+
     [HttpGet("github-login")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public IActionResult LoginWithGitHub()
     {
         try
         {
+            string redirectUri = _configuration.GetValue<string>("AuthSettings:RedirectUri");
+
             var authenticationProperties = new AuthenticationProperties
             {
-                RedirectUri = "https://localhost:7029/swagger"
+                RedirectUri = string.IsNullOrWhiteSpace(redirectUri)
+                              ? "https://localhost:7029/swagger"
+                              : redirectUri
             };
-            
-            var authenticationSchemes =  new[] { "GitHub" };
-            
+
+            var authenticationSchemes = new[] { "GitHub" };
+
             return Challenge(authenticationProperties, authenticationSchemes);
         }
         catch (Exception e)

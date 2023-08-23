@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CartEase.Api.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class CartController : BaseController

@@ -14,7 +14,7 @@ Follow these steps to set up the project on your local machine.
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/CartEase.git
+git clone https://github.com/TefoT4/CartEase.git
 cd CartEase
 ```
 

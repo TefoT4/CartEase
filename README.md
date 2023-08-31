@@ -9,7 +9,7 @@ CartEase uses OAuth 2.0 for user authentication. Users are required to log in us
 ### Github OAuth 2.0
 
 To authenticate with Github:
-1. Visit the login page and click on the "Login with Github" button.
+1. Visit the login endpoint.
 2. You will be redirected to Github's authentication page.
 3. After successfully logging in, you will be redirected back to the application.
 

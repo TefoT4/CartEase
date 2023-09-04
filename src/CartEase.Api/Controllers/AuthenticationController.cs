@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 
-public class YourController : ControllerBase
+public class AuthenticationController : ControllerBase
 {
     private readonly ILogger<YourController> _logger;
     private readonly IConfiguration _configuration;
 
-    public YourController(ILogger<YourController> logger, IConfiguration configuration)
+    public AuthenticationController(ILogger<YourController> logger, IConfiguration configuration)
     {
         _logger = logger;
         _configuration = configuration;

@@ -6,7 +6,7 @@ public class AuthenticationController : ControllerBase
     private readonly ILogger<YourController> _logger;
     private readonly IConfiguration _configuration;
 
-    public AuthenticationController(ILogger<YourController> logger, IConfiguration configuration)
+    public AuthenticationController(ILogger<AuthenticationController> logger, IConfiguration configuration)
     {
         _logger = logger;
         _configuration = configuration;
